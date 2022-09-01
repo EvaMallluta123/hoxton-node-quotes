@@ -2,7 +2,7 @@ import express from "express"
 import cors from 'cors'
 
 
-const basket = [
+const quotes = [
   {
     id: 1,
     name: " Dalai Lama",
@@ -53,11 +53,11 @@ app.use(cors())
 const port = 4000
 
 app.get('/home', (req, res) => {
-  res.send(basket)
+  res.send(quotes)
 })
 app.get('/home/:id', (req, res) => {
   const id = Number(req.params.id)
-  const match = basket.find(item => item.id === id)
+  const match = quotes.find(item => item.id === id)
 
   if (match) {
     res.send(match)
