@@ -62,8 +62,39 @@ app.get('/home/:id', (req, res) => {
   if (match) {
     res.send(match)
   } else {
-    res.status(404).send({ error: 'Item not found.' })
+    res.status(404).send({ error: 'Not found.' })
   }
+})
+app.post(`.home`, (req,res)=>{
+  let errors:string[]=[]
+  if (typeof req.body.id !== 'number') {
+    errors.push('Title not provided or not a number')
+  }
+  
+  if (typeof req.body.name!== 'string') {
+    errors.push('Title not provided or not a string.')
+  }
+  if (typeof req.body.quote!== 'string') {
+    errors.push('Title not provided or not a string.')
+  }
+  if (typeof req.body.age !== 'number') {
+    errors.push('Title not provided or not a number')
+  }
+  if (typeof req.body.image!== 'string') {
+    errors.push('Title not provided or not a string.')
+  }
+  if(errors.length===0){
+  const newQuote={
+    id:quotes[quotes.length-1].id+1,
+    name: req.body.name,
+    quote:req.body.quote,
+    age:req.body.age,
+    image:req.body.image
+  }
+  quotes.push(newQuote)
+  res.send(newQuote)
+}else 
+res.status(404).send({errors})
 })
 
 
